@@ -33,3 +33,37 @@ client.on(Events.MessageCreate, async (message) => {
     if (message.channel.id !== BOT_CHANNEL) return;
 
     console.log(`Received message: "${message.content}" from ${message.member.displayName}`);
+
+        // Check cooldown
+        const now = Date.now();
+        const cooldownKey = `${message.guild.id}-${message.author.id}`;
+        const cooldown = cooldowns.get(cooldownKey) || 0;
+        if (now < cooldown) {
+          const remainingTime = (cooldown - now) / 1000;
+          console.log(`User ${message.member.displayName} is on cooldown for ${remainingTime.toFixed(1)} seconds.`);
+          await message.channel.send(
+            `Please wait ${remainingTime.toFixed(1)} seconds before using the bot again.`
+          );
+          return;
+        }
+    
+        // Update cooldown
+        cooldowns.set(cooldownKey, now + COOLDOWN_PERIOD);
+    
+        message.channel.sendTyping();
+    
+        let messages = Array.from(
+          await message.channel.messages.fetch({
+            limit: PAST_MESSAGES,
+            before: message.id,
+          })
+        );
+        messages = messages.map((m) => m[1]);
+        messages = messages.concat([message]);
+    
+        let users = [
+          ...new Set([
+            ...messages.map((m) => m.member.displayName),
+            client.user.username,
+          ]),
+        ];
