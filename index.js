@@ -67,3 +67,34 @@ client.on(Events.MessageCreate, async (message) => {
             client.user.username,
           ]),
         ];
+        
+    let lastUser = users.pop();
+
+    let prompt = `The following is a conversation between ${users.join(
+      ", "
+    )}, and ${lastUser}. \n\n`;
+
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const m = messages[i];
+      prompt += `${m.member.displayName}: ${m.content}\n`;
+    }
+    prompt += `${client.user.username}:`;
+    console.log("Prompt:", prompt);
+
+    const response = await openai.createCompletion({
+      prompt,
+      model: "text-davinci-003",
+      max_tokens: 500,
+      stop: ["\n"],
+    });
+
+    const botResponse = response.data.choices[0].text;
+    console.log(`Responding with: "${botResponse}"`);
+    await message.channel.send(botResponse);
+  } catch (error) {
+    console.error("Error processing message:", error);
+    await message.channel.send(
+      "An error occurred while processing your message. Please try again later."
+    );
+  }
+});
