@@ -22,7 +22,7 @@ client.once(Events.ClientReady, (clientUser) => {
 
   client.login(process.env.BOT_TOKEN);
 
-const BOT_CHANNEL = "1084538798744010762";
+const BOT_CHANNEL = "1089628711348867122";
 const PAST_MESSAGES = 5;
 const COOLDOWN_PERIOD = 0; // 30 seconds
 const cooldowns = new Map();
