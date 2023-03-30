@@ -10,10 +10,13 @@ This Discord bot is implemented in JavaScript and uses the Completions API to en
 
 
 ## Installation
-Install the required dependencies using the following command:
+Install the required dependencies using the following commands:
 
 ```bash
-npm install
+npm npm init -y
+```
+```bash
+npm i discord.js dotenv openai
 ```
 Create a .env file in the root directory of the project and add the following variables:
 ```.env
@@ -22,7 +25,7 @@ OPENAI_API_KEY=your-openai-api-key-here
 ```
 Start the bot using the following command:
 ```bash
-npm start
+node index.js
 ```
 
 ## Contributing
