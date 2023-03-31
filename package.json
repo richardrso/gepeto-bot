@@ -1,1 +1,17 @@
- a
+{
+  "name": "gepeto-bot",
+  "version": "1.0.0",
+  "description": "This Discord bot is implemented in JavaScript and uses the Completions API to enable chat conversations with the Text-Davinci-003 model. Additionally, the Moderations API is utilized for message filtering.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.8.0",
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
+  }
+}
